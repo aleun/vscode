@@ -320,6 +320,23 @@ class DuplicateWorkspaceInNewWindowAction extends Action2 {
 	}
 }
 
+export class RequestUsbDeviceAction extends Action2 {
+	static readonly ID = 'workbench.action.requestUsbDevice';
+
+	constructor() {
+		super({
+			id: RequestUsbDeviceAction.ID,
+			title: { value: localize('requestUsbDevice', "Request USB Device"), original: 'Request USB Device' },
+			category: workspacesCategory,
+			f1: true,
+		});
+	}
+
+	override async run(_accessor: ServicesAccessor): Promise<void> {
+		await (navigator as any).usb.requestDevice({ filters: [] });
+	}
+}
+
 // --- Actions Registration
 
 registerAction2(AddRootFolderAction);
@@ -333,6 +350,7 @@ registerAction2(OpenWorkspaceConfigFileAction);
 registerAction2(CloseWorkspaceAction);
 registerAction2(SaveWorkspaceAsAction);
 registerAction2(DuplicateWorkspaceInNewWindowAction);
+registerAction2(RequestUsbDeviceAction);
 
 // --- Menu Registration
 
